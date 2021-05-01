@@ -1,24 +1,38 @@
 package com.floweytf.industrialization;
 
+import com.sun.istack.internal.NotNull;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.event.Event;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class CustomItemFactory {
-    private interface CustomItem {
+    public interface CustomItem {
         ItemStack create();
-        void event();
+        default void onInventoryClickEvent(InventoryClickEvent event) {};
+        default void onPlayerDropItemEvent(PlayerDropItemEvent event) {};
+        default void onBlockPlaceEvent(BlockPlaceEvent event) {};
+        default void onPlayerInteractEvent(PlayerInteractEvent event) {};
+        default void onEntityDeathEvent(EntityDeathEvent event) {};
+        default void onEntityDamageByEntityEvent(EntityDamageByEntityEvent event) {};
+        default void onPlayerSwapHandItemsEvent(PlayerSwapHandItemsEvent event) {};
     }
 
-    public static final NamespacedKey DRILL_TEIR = PluginMain.getNamespaceKey("tier");
+    public static final NamespacedKey DRILL_TIER = PluginMain.getNamespaceKey("tier");
     public static final NamespacedKey DRILL_UPGRADES = PluginMain.getNamespaceKey("upgrades");
     public static final NamespacedKey ITEM_ENERGY = PluginMain.getNamespaceKey("energy");
     public static final NamespacedKey ITEM_MAX_ENERGY = PluginMain.getNamespaceKey("max_energy");
@@ -36,6 +50,11 @@ public class CustomItemFactory {
         meta.setUnbreakable(!breakable);
         item.setItemMeta(meta);
         return item;
+    }
+
+    public static CustomItem getByItem(ItemStack itemStack) {
+        String id = itemStack.getItemMeta().getPersistentDataContainer().get(ID, PersistentDataType.STRING);
+        return ID_TO_ITEM.get(id);
     }
 
     private static ItemStack applyEnergy(@NotNull ItemStack item, int max) {
