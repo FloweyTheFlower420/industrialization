@@ -24,10 +24,6 @@ public class Utils {
         return item;
     }
 
-    public static boolean isDrill(@NotNull ItemStack item) {
-        return item.getItemMeta().getPersistentDataContainer().getOrDefault(CustomItemBuilder.DRILL_TEIR, PersistentDataType.INTEGER, 0) > 0;
-    }
-
     public static boolean isEnergy(@NotNull ItemStack item) {
         return item.getItemMeta().getPersistentDataContainer().getOrDefault(CustomItemBuilder.ITEM_ENERGY, PersistentDataType.INTEGER, -1) > -1;
     }

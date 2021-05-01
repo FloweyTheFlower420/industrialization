@@ -1,10 +1,12 @@
 package com.floweytf.industrialization;
 
+import com.floweytf.industrialization.customitem.CustomItemRegistry;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PluginMain extends JavaPlugin {
     private static PluginMain instance = null;
+    public final CustomItemRegistry ITEM_REGISTRY = new CustomItemRegistry();
 
     @Override
     public void onEnable() {
@@ -15,6 +17,10 @@ public class PluginMain extends JavaPlugin {
     @Override
     public void onDisable() {
         instance = null;
+    }
+
+    public static PluginMain getInstance() {
+        return instance;
     }
 
     public static NamespacedKey getNamespaceKey(String value) {

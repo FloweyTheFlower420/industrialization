@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CustomItemRegistry {
-    public static final Map<String, CustomItem> ID_TO_ITEM = new HashMap<String, CustomItem>() {{
+    public final Map<String, CustomItem> ID_TO_ITEM = new HashMap<String, CustomItem>() {{
         put("DRILL_T1", new DrillTier1());
         put("DRILL_T2", new DrillTier2());
         put("DRILL_T3", new DrillTier3());
@@ -25,7 +25,8 @@ public class CustomItemRegistry {
         put("SUICIDE_VEST", new SuicideVest());
         put("VALSALVA", new Valsalva());
     }};
-    public static CustomItem getByItem(ItemStack itemStack) {
+
+    public CustomItem getByItem(ItemStack itemStack) {
         String id = itemStack.getItemMeta().getPersistentDataContainer().get(CustomItemBuilder.ID, PersistentDataType.STRING);
         return ID_TO_ITEM.get(id);
     }
