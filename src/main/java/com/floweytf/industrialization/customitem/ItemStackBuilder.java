@@ -2,7 +2,6 @@ package com.floweytf.industrialization.customitem;
 
 import com.floweytf.industrialization.PluginMain;
 import com.floweytf.industrialization.Utils;
-import com.sun.istack.internal.NotNull;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemFlag;
@@ -10,12 +9,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
 public class CustomItemBuilder {
-    public static final NamespacedKey DRILL_TIER = PluginMain.getNamespaceKey("tier");
-    public static final NamespacedKey DRILL_UPGRADES = PluginMain.getNamespaceKey("upgrades");
     public static final NamespacedKey ITEM_ENERGY = PluginMain.getNamespaceKey("energy");
     public static final NamespacedKey ITEM_MAX_ENERGY = PluginMain.getNamespaceKey("max_energy");
     public static final NamespacedKey LORE = PluginMain.getNamespaceKey("lore");
@@ -64,7 +62,7 @@ public class CustomItemBuilder {
         return item;
     }
 
-    public CustomItemBuilder quickGenerate(int model, String id, String lore, boolean breakable) {
+    public CustomItemBuilder quickGenerate(String id, int model, String lore, boolean breakable) {
         return this
             .setData(ID, PersistentDataType.STRING, id)
             .setData(LORE, PersistentDataType.STRING, lore)
